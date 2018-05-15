@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="col-lg-12 bg-light shadow-xs space-inside-md space-outside-up-xl space-inside-left-md">      
-        <h1>{{ $customer->name }} bewerken</h1>    
+        <h1><strong class="text-color-main">{{ $customer->name }}</strong> • bewerken</h1> 
 
         @include('decorators.back-button')
 

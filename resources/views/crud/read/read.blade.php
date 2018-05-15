@@ -1,3 +1,7 @@
+@if($errors->any())
+    <h4>{{$errors->first()}}</h4>
+@endif
+
 <div class="table-responsive">
     <table class="table table-striped table-hover">
         <thead class="bg-main">        

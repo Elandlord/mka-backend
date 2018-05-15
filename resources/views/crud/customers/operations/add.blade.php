@@ -8,11 +8,17 @@
             </div>
             <div class="form-group">
                 <label for="type">Type</label>
-                <input type="text" class="form-control" placeholder="Type" name="type" id="type" required/>
+                <select name="type" class="form-control" id="type">
+                    <option value="business">Business</option>
+                    <option value="business">Nog meer shizzle</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="status">Status</label>
-                <input type="text" class="form-control" placeholder="Status" name="status" id="status" required/>
+                <select name="status" class="form-control" id="status">
+                    <option value="customer">Customer</option>
+                    <option value="blocked">Blocked</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
@@ -48,7 +54,11 @@
             </div>
             <div class="form-group">
                 <label for="country_code">Landcode</label>
-                <input type="text" class="form-control" placeholder="Landcode" name="country_code" id="country_code" required/>
+                <select name="country_code" id="country_code" class="form-control">
+                    @foreach($country_codes as $country_code)
+                        <option value="{{ $country_code }}">{{ $country_code}}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="mailing_address">Postbus adres</label>
@@ -72,7 +82,11 @@
             </div>
             <div class="form-group">
                 <label for="mailing_country_code">Postbus landcode</label>
-                <input type="text" class="form-control" placeholder="Postbus landcode" name="mailing_country_code" id="mailing_country_code" required/>
+                <select name="mailing_country_code" id="mailing_country_code" class="form-control">
+                    @foreach($country_codes as $country_code)
+                        <option value="{{ $country_code }}">{{ $country_code}}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="fiscal_number">Fiscaal nummer</label>
@@ -104,7 +118,11 @@
             </div>
             <div class="form-group">
                 <label for="currency">Valuta</label>
-                <input type="text" class="form-control" placeholder="Valuta" name="currency" id="currency" required/>
+                <select name="currency" id="currency" class="form-control">
+                    @foreach($currencies as $currency)
+                        <option value="{{ $currency }}">{{ $currency}}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="pay_term">Betalingstermijn</label>
@@ -120,11 +138,19 @@
             </div>
             <div class="form-group">
                 <label for="branch_id">Branch ID</label>
-                <input type="text" class="form-control" placeholder="Branch ID" name="branch_id" id="branch_id" required/>
+                <select name="branch_id" id="branch_id" class="form-control">
+                    @foreach($branches as $branch)
+                        <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="contact_person_id">Contactpersoon ID</label>
-                <input type="text" class="form-control" placeholder="Contactpersoon ID" name="contact_person_id" id="contact_person_id" required/>
+                <select name="contact_person_id" id="contact_person_id" class="form-control">
+                    @foreach($contact_persons as $person)
+                        <option value="{{ $person->id }}">{{ $person->first_name }} {{ $person->last_name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <button class="btn bg-secondary bg-secondary-hover-lighten-xs transition-fast text-color-light">Opslaan</button>

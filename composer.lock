@@ -611,12 +611,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:rapideinternet/hellohi.apiclient.php.git",
-                "reference": "7f2089923aa832b6f7b85aa5b9e47a914dce4ef4"
+                "reference": "9541eb5ac8d7ddb8b2cf2d867cea7622ae7391c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rapideinternet/hellohi.apiclient.php/zipball/7f2089923aa832b6f7b85aa5b9e47a914dce4ef4",
-                "reference": "7f2089923aa832b6f7b85aa5b9e47a914dce4ef4",
+                "url": "https://api.github.com/repos/rapideinternet/hellohi.apiclient.php/zipball/9541eb5ac8d7ddb8b2cf2d867cea7622ae7391c4",
+                "reference": "9541eb5ac8d7ddb8b2cf2d867cea7622ae7391c4",
                 "shasum": ""
             },
             "require": {
@@ -647,7 +647,7 @@
                 "source": "https://github.com/rapideinternet/hellohi.apiclient.php/tree/master",
                 "issues": "https://github.com/rapideinternet/hellohi.apiclient.php/issues"
             },
-            "time": "2018-05-14T10:09:50+00:00"
+            "time": "2018-05-15T14:09:07+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -779,16 +779,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.6.21",
+            "version": "v5.6.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "458a89b1c5ff73072c27308566f444c790f76f28"
+                "reference": "637fd797a6dde8d24a9f07da77e375ec251c5d24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/458a89b1c5ff73072c27308566f444c790f76f28",
-                "reference": "458a89b1c5ff73072c27308566f444c790f76f28",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/637fd797a6dde8d24a9f07da77e375ec251c5d24",
+                "reference": "637fd797a6dde8d24a9f07da77e375ec251c5d24",
                 "shasum": ""
             },
             "require": {
@@ -914,7 +914,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-05-08T13:30:15+00:00"
+            "time": "2018-05-15T13:34:20+00:00"
         },
         {
             "name": "laravel/tinker",

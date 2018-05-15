@@ -21,6 +21,7 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::resource('customers', 'CustomerController');
     Route::resource('tenants', 'TenantController');
+    Route::resource('persons', 'PersonController');
 
     Route::get('/logout', 'LogoutController@index');
 });

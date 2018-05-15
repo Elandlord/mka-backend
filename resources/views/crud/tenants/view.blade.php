@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="col-lg-12 bg-light shadow-xs space-inside-md space-outside-up-xl space-inside-left-md">      
-        <h1>{{ $tenant->name }} bewerken</h1>    
+        <h1><strong class="text-color-main">{{ $tenant->name }}</strong> • bewerken</h1> 
 
         @include('decorators.back-button')
 
@@ -35,7 +35,7 @@
                         <input type="text" class="form-control" placeholder="Secundaire tekstkleur" name="secondary_color_text" id="secondary_color_text" value="{{ $tenant->secondary_color_text }}" required/>
                     </div>
                     <div class="form-group">
-                        <button class="btn bg-secondary bg-secondary-hover-darken-xs transition-fast text-color-light">Opslaan</button>
+                        <button class="btn bg-secondary bg-secondary-hover-lighten-xs transition-fast text-color-light">Opslaan</button>
                     </div>
                 </form>
             </div>

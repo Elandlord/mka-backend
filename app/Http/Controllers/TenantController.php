@@ -58,8 +58,13 @@ class TenantController extends Controller
     {
         $response = Model::create('tenants', $request->all());
         
-        Toastr::success('U heeft zojuist een Tenant toegevoegd.', 'Gelukt!', ["positionClass" => "toast-top-right"]);
-        return redirect()->back();
+        if($response != null) {
+            Toastr::success('U heeft zojuist een Tenant toegevoegd.', 'Gelukt!', ["positionClass" => "toast-top-right"]);
+            return redirect()->back();
+        }
+
+        $client = Client::getInstance();
+        var_dump($client->lastError);
     }
 
     /**

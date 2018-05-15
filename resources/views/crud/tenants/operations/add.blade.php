@@ -27,7 +27,7 @@
                 <input type="text" class="form-control" placeholder="Secundaire tekstkleur" name="secondary_color_text" id="secondary_color_text" required/>
             </div>
             <div class="form-group">
-                <button class="btn bg-secondary bg-secondary-hover-darken-xs transition-fast text-color-light">Opslaan</button>
+                <button class="btn bg-secondary bg-secondary-hover-lighten-xs transition-fast text-color-light">Opslaan</button>
             </div>
         </form>
     </div>

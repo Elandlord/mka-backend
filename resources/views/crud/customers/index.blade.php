@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="col-lg-12 bg-light shadow-xs space-inside-md space-outside-up-xl space-inside-left-md">      
-        <h1>Customers</h1>    
+        <h1 class="space-inside-left-sm"><strong class="text-color-main">Customers</strong> • beheren</h1> 
         
         <div v-cloak>        
             <tabs cache-lifetime="10">
