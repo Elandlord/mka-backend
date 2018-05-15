@@ -10,7 +10,7 @@
                     @include('crud.read.read', ['objects' => $tenants, 'fields' => $tenant_fields])
                 </tab>
                 <tab name="Tenant toevoegen">
-                    Toevoegen
+                    @include('crud.tenants.operations.add')
                 </tab>
             </tabs>
         </div>

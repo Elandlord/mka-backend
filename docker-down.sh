@@ -1,2 +1,2 @@
-cd laradock
-docker-compose stop nginx mariadb adminer redis workspace
+cd laradock_mka
+docker-compose stop nginx mysql adminer redis workspace

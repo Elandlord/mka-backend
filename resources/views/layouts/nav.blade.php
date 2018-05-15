@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top bg-main border-none shadow-xs">
+<nav class="navbar navbar-default navbar-fixed-top login-background border-none shadow-xs">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -14,8 +14,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right space-inside-right-md">
                 <li>
-                    <a href="#" class="dropdown-toggle text-color-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Eric Landheer
+                    <a href="#" class="dropdown-toggle transition-fast text-color-tertiary text-hover-light text-bold-hover text-bold" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        {{ Auth::user()->name }}
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu space-inside-sides-md space-inside-md border-none">
@@ -31,7 +31,7 @@
                             </div> 
                         </li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="/cms/logout"><i style="position: relative; top: 8px; right: 6px;" class="material-icons">exit_to_app</i>Uitloggen</a></li>
+                        <li><a href="/logout"><i style="position: relative; top: 8px; right: 6px;" class="material-icons">exit_to_app</i>Uitloggen</a></li>
                         <!-- end of user -->
                     </ul>
                 </li>

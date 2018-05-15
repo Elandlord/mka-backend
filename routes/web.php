@@ -11,13 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('customers', 'CustomerController');
-Route::resource('tenants', 'TenantController');
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('/', 'DashboardController@index');
+
+    /* All entities here */
+
+    Route::resource('customers', 'CustomerController');
+    Route::resource('tenants', 'TenantController');
+
+    Route::get('/logout', 'LogoutController@index');
+});

@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ env('APP_NAME') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -17,7 +17,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="bg-grey">
     <div id="app">
         @include('layouts.nav')
         
@@ -43,7 +43,7 @@
 
 
             <!--  all content -->
-            <div  class="body transition-normal col-lg-10 col-md-10 col-xs-12 reset-padding">
+            <div  class="body transition-normal col-lg-10 col-md-10 col-xs-12 reset-padding bg-grey">
                 <div class="row"> 
                     <div class="col-lg-12 col-md-12 space-outside-down-sm">
                         @yield('content')

@@ -5,7 +5,7 @@
                 <th></th>
                 <th></th>
                 @foreach($fields as $field)
-                    <th style="min-width: 130px;">{{ $field }}</th>
+                    <th style="min-width: 135px;">{{ $field }}</th>
                 @endforeach
             </tr>
         </thead>
@@ -13,12 +13,18 @@
             <tr class="pointer">            
                 <td>
                     <a href="{{ $entity_name }}/{{ $object->id }}">
-                        <button class="btn bg-secondary text-color-light">Edit</button>
+                        <button class="btn bg-secondary bg-secondary-hover-lighten-xs transition-fast text-color-light">
+                            <i class="material-icons">edit</i>
+                        </button>
                     </a>
                 </td>
                 <td>
-                    <form method="DELETE" action="{{ $entity_name }}/{{ $object->id }}">
-                        <button class="btn bg-error text-color-light">Delete</button>
+                    <form method="POST" action="{{ $entity_name }}/{{ $object->id }}">
+                        @csrf
+                        <input name="_method" type="hidden" value="DELETE">
+                        <button class="btn btn-danger transition-fast text-color-light">
+                            <i class="material-icons">delete_forever</i>
+                        </button>
                     </form>
                 </td>
                 <?php $vars = get_object_vars($object); ?>

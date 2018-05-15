@@ -7,7 +7,7 @@
 			bg-hover-main
 			transition-fast 
 			outline-none
-			text-color-accent text-hover-light text-bold-hover text-bold font-sm"
+			text-color-tertiary text-hover-light text-bold-hover text-bold font-sm"
 
 	 	:href="id"> 
 

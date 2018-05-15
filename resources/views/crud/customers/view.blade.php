@@ -4,13 +4,7 @@
     <div class="col-lg-12 bg-light shadow-xs space-inside-md space-outside-up-xl space-inside-left-md">      
         <h1>{{ $customer->name }} bewerken</h1>    
 
-        <div class="space-outside-up-sm">
-            <a href="{{ URL::previous() }}">
-                <button class="circle bg-secondary text-color-light text-bold border-none" style="font-size: 25px; width: 40px; height: 40px;">
-                    <
-                </button>
-            </a>
-        </div>
+        @include('decorators.back-button')
 
         <div class="row space-outside-md">
             <div class="col-lg-6">
@@ -141,7 +135,7 @@
                         <input type="text" class="form-control" placeholder="Contactpersoon ID" name="contact_person_id" id="contact_person_id" value="{{ $customer->contact_person_id }}" required/>
                     </div>
                     <div class="form-group">
-                        <button class="btn bg-main text-color-light">Opslaan</button>
+                        <button class="btn bg-secondary bg-secondary-hover-lighten-xs transition-fast text-color-light">Opslaan</button>
                     </div>
                 </form>
             </div>

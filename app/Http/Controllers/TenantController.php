@@ -9,6 +9,8 @@ use HelloHi\ApiClient\Model;
 
 use App\Models\Tenant;
 
+use Toastr;
+
 class TenantController extends Controller
 {
     /**
@@ -23,19 +25,7 @@ class TenantController extends Controller
         $tenants = [];
 
         foreach($response as $tenant){
-            $newTenant = new Tenant;
-            $newTenant->id = $tenant->id;
-            $newTenant->name = $tenant->name;
-            $newTenant->subdomain = $tenant->subdomain;
-            // $newTenant->db_hostname = $tenant->db_hostname;
-            // $newTenant->db_database = $tenant->db_database;
-            // $newTenant->db_username = $tenant->db_username;
-            // $newTenant->db_password = $tenant->db_password;
-            // $newTenant->db_encrypted = $tenant->db_encrypted;
-            $newTenant->primary_color = $tenant->primary_color;
-            $newTenant->primary_color_text = $tenant->primary_color_text;
-            $newTenant->secondary_color = $tenant->secondary_color;
-            $newTenant->secondary_color_text = $tenant->secondary_color_text;
+            $newTenant = $this->makeNewTenant($tenant);
             array_push($tenants, $newTenant);
         }
 
@@ -66,7 +56,10 @@ class TenantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $response = Model::create('tenants', $request->all());
+        
+        Toastr::success('U heeft zojuist een Tenant toegevoegd.', 'Gelukt!', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
     }
 
     /**
@@ -77,7 +70,11 @@ class TenantController extends Controller
      */
     public function show($id)
     {
-        //
+        $response = Model::byId('tenants', $id);
+
+        $tenant = $this->makeNewTenant($response);
+
+        return view('crud.tenants.view', compact('tenant'));
     }
 
     /**
@@ -112,5 +109,23 @@ class TenantController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function makeNewTenant($tenant)
+    {
+        $newTenant = new Tenant;
+        $newTenant->id = $tenant->id;
+        $newTenant->name = $tenant->name;
+        $newTenant->subdomain = $tenant->subdomain;
+        // $newTenant->db_hostname = $tenant->db_hostname;
+        // $newTenant->db_database = $tenant->db_database;
+        // $newTenant->db_username = $tenant->db_username;
+        // $newTenant->db_password = $tenant->db_password;
+        // $newTenant->db_encrypted = $tenant->db_encrypted;
+        $newTenant->primary_color = $tenant->primary_color;
+        $newTenant->primary_color_text = $tenant->primary_color_text;
+        $newTenant->secondary_color = $tenant->secondary_color;
+        $newTenant->secondary_color_text = $tenant->secondary_color_text;
+        return $newTenant;
     }
 }

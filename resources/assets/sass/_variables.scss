@@ -97,9 +97,10 @@
 $light-color: white;
 $dark-color: #211d1e;
 $main-color : #5c42af;
-$secondary-color : #e7cb00;
-$accent-color : #B9BFC6;
+$secondary-color : #EBCA35;
+$accent-color : #E9822F;
 $tertiary-color: #B9BFC6;
+$grey-color: #ECECEC;
 
 $background-color-light: white;
 $background-color-dark: #211d1e;
@@ -113,8 +114,8 @@ $danger-color: #fb0a28;
 /* --------------------------------------------- FONT VARIABLES -------------------------------------------- */
 
 
-$font: 'Open Sans', sans-serif;
-$font-heading: 'Open Sans', sans-serif;
+$font: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;    
+$font-heading: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 
 
@@ -213,6 +214,10 @@ body, p, span, a, h1, h2, h3, h4, h5{ margin: 0; padding: 0; }
 body{
 	background: $background-color-light;
 	font-size: $font-size-sm;
+	font-family: $font;
+}
+
+body *{
 	font-family: $font;
 }
 

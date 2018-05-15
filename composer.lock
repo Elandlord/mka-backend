@@ -611,12 +611,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:rapideinternet/hellohi.apiclient.php.git",
-                "reference": "63e09343a4f037408fe9722119b9c1b891383a4b"
+                "reference": "7f2089923aa832b6f7b85aa5b9e47a914dce4ef4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rapideinternet/hellohi.apiclient.php/zipball/63e09343a4f037408fe9722119b9c1b891383a4b",
-                "reference": "63e09343a4f037408fe9722119b9c1b891383a4b",
+                "url": "https://api.github.com/repos/rapideinternet/hellohi.apiclient.php/zipball/7f2089923aa832b6f7b85aa5b9e47a914dce4ef4",
+                "reference": "7f2089923aa832b6f7b85aa5b9e47a914dce4ef4",
                 "shasum": ""
             },
             "require": {
@@ -647,7 +647,7 @@
                 "source": "https://github.com/rapideinternet/hellohi.apiclient.php/tree/master",
                 "issues": "https://github.com/rapideinternet/hellohi.apiclient.php/issues"
             },
-            "time": "2018-05-07T14:15:50+00:00"
+            "time": "2018-05-14T10:09:50+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",

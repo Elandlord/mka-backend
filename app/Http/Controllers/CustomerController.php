@@ -58,6 +58,10 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         //$response = Client::create('customers', $request->all());
+        $customers = collect(Model::customers(['creator']));
+        $customer = $customers->first();
+
+        $customer->create('customers', $request->all());
 
         Toastr::success('U heeft zojuist een Customer toegevoegd.', 'Gelukt!', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
@@ -109,6 +113,9 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
+        $customer = Model::byId('customers', $id);
+        $customer->delete();
+
         Toastr::success('U heeft zojuist een Customer verwijderd.', 'Gelukt!', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }

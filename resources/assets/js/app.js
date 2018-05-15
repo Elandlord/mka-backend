@@ -5,9 +5,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
 
 window.Vue = require('vue');
+
+require('./bootstrap');
+require('./components/helpers/Classes');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,6 +33,8 @@ import {Tabs, Tab} from 'vue-tabs-component';
 
 Vue.component('tabs', Tabs);
 Vue.component('tab', Tab);
+
+let navCollapse = require('./components/custom-scripts/navCollapse');
 
 
 const app = new Vue({

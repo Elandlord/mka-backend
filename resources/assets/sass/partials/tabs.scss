@@ -19,7 +19,7 @@
   }
   
   .tabs-component-tab {
-    color: $accent-color;
+    color: $tertiary-color;
     font-size: 14px;
     font-weight: 600;
     margin-right: 0;
@@ -32,6 +32,10 @@
   
   .tabs-component-tab:hover {
     color: $secondary-color;
+    -webkit-transition: 500ms;
+    -moz-transition: 500ms;
+    -o-transition: 500ms;
+    transition: 500ms;
   }
   
   .tabs-component-tab.is-active {

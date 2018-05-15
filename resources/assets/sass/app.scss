@@ -1,5 +1,7 @@
 @import "node_modules/material-design-icons/iconfont/material-icons";
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url(https://fonts.googleapis.com/css?family=Montserrat:100,400,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
 
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "node_modules/animate.css/animate.min";
@@ -144,10 +146,48 @@
 }
 
 [v-cloak] > * { display:none }
-[v-cloak]::before { 
+[v-cloak]::before {
+  margin: 0 auto; 
   content: " ";
   display: block;
   width: 16px;
   height: 16px;
   background-image: url('data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==');
+}
+
+.form-control:focus {
+  border-color: $secondary-color;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 224, 0, 0.6);
+}
+
+.houses-left {
+  position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	opacity: 0.15;
+	width: 30vw;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	background-position: left -50px bottom;
+	background-image: url("/images/houses-left.svg");
+}
+
+.houses-right{
+	position: absolute;
+	z-index: 1;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	opacity: 0.15;
+	width: 40vw;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	background-position: right -50px bottom;
+	background-image: url("/images/houses-right.svg");
+}
+
+.login-background {
+  background: -webkit-gradient(linear, left top, right top, from(#483692), to(#7047ce));
 }

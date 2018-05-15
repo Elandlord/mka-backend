@@ -127,7 +127,7 @@
                 <input type="text" class="form-control" placeholder="Contactpersoon ID" name="contact_person_id" id="contact_person_id" required/>
             </div>
             <div class="form-group">
-                <button class="btn bg-main text-color-light">Opslaan</button>
+                <button class="btn bg-secondary bg-secondary-hover-lighten-xs transition-fast text-color-light">Opslaan</button>
             </div>
         </form>
     </div>
