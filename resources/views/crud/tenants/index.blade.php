@@ -12,6 +12,9 @@
                 <tab name="Tenant toevoegen">
                     @include('crud.tenants.operations.add')
                 </tab>
+                <tab name="Modules per tenant">
+                    @include('crud.tenants.operations.modules')
+                </tab>
             </tabs>
         </div>
     </div>

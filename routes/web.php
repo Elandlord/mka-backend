@@ -18,10 +18,11 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/', 'DashboardController@index');
 
     /* All entities here */
-
     Route::resource('customers', 'CustomerController');
-    Route::resource('tenants', 'TenantController');
+    Route::resource('modules', 'ModuleController');
     Route::resource('persons', 'PersonController');
+    Route::resource('tenants', 'TenantController');
+    Route::resource('users', 'UserController');
 
     Route::get('/logout', 'LogoutController@index');
 });

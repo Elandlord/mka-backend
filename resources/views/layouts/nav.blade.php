@@ -22,7 +22,7 @@
                         <!-- user -->
                         <li class="space-inside-down-sm">
                             <div class="circle image shadow-sm">
-                                <img class="height-auto" src="images/fixed/user.png">
+                                <img class="height-auto" src="/images/fixed/blank_avatar.png">
                             </div>
                         </li>
                         <li class="space-inside-down-sm">               
