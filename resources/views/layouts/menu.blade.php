@@ -25,7 +25,7 @@
 
     <div id="users" class="collapse in" v-cloak>
         {{-- <nav-link id="/persons" icon="account_circle"> Personen </nav-link> --}}
-        <nav-link id="/customers" icon="group"> Customers </nav-link>
+        <nav-link id="/customers" icon="face"> Customers </nav-link>
         <nav-link id="/users" icon="account_circle"> Users </nav-link>
     </div>  
 </div>
@@ -45,5 +45,6 @@
     <div id="overig" class="collapse in" v-cloak>
         {{-- <nav-link id="/persons" icon="account_circle"> Personen </nav-link> --}}
         <nav-link id="/modules" icon="add_box"> Modules </nav-link>
+        <nav-link id="/permissions" icon="vpn_key"> Permissies </nav-link>
     </div>  
 </div>

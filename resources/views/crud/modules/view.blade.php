@@ -32,7 +32,9 @@
                     <select class="form-control" name="is_active" id="is_active">
                         @if($module->is_active == 1)
                             <option value="1" selected>Actief</option>
+                            <option value="0">Niet actief</option>
                         @else
+                            <option value="1" selected>Actief</option>
                             <option value="0" selected>Niet actief</option>
                         @endif
                     </select>

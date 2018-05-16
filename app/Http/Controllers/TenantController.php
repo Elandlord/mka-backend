@@ -8,11 +8,26 @@ use HelloHi\ApiClient\Client;
 use HelloHi\ApiClient\Model;
 
 use App\Models\Tenant;
+use App\Models\Module;
 
 use Toastr;
 
 class TenantController extends Controller
 {
+    public function getModules()
+    {
+        $response = Model::all('modules', ['creator']);
+
+        $modules = [];
+
+        foreach($response as $module){
+            $newModule = $this->makeNewModule($module);
+            array_push($modules, $newModule);
+        }
+
+        return $modules;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,11 +46,13 @@ class TenantController extends Controller
 
         $tenants = collect($tenants);
 
+        $modules = $this->getModules();
+
         $tenant_fields = Tenant::FIELDS;
 
         $entity_name = "tenants";
 
-        return view('crud.tenants.index', compact('tenants', 'tenant_fields', 'entity_name'));
+        return view('crud.tenants.index', compact('tenants', 'tenant_fields', 'entity_name', 'modules'));
     }
 
     /**
@@ -142,5 +159,36 @@ class TenantController extends Controller
         $newTenant->secondary_color = $tenant->secondary_color;
         $newTenant->secondary_color_text = $tenant->secondary_color_text;
         return $newTenant;
+    }
+
+    public function makeNewModule($module)
+    {
+        $newModule = new Module;
+        $newModule->id = $module->id;
+        $newModule->name = $module->name;
+        $newModule->description = $module->description;
+        $newModule->logo = $module->logo;
+        $newModule->action = $module->action;
+        $newModule->key = $module->key;
+        $newModule->priority = $module->priority;
+        $newModule->is_active = $module->is_active;
+        $newModule->created_at = $module->created_at;
+        $newModule->updated_at = $module->updated_at;
+        $newModule->real_id = $module->real_id;
+        return $newModule;
+    }
+
+    public function modules(Request $request)
+    {
+        $tenant_id = $request->get('tenant_id');
+        $tenant_name = $request->get('tenant_name');
+        $modules = $request->get('modules');
+
+        // To-do Sync modules
+        
+        $implode = implode(", ", $modules);
+
+        Toastr::success("U heeft de modules voor ". $tenant_name ." bijgewerkt naar: ". $implode, 'Gelukt!', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
     }
 }

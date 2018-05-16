@@ -20,7 +20,9 @@ Route::group(['middleware' => ['auth']], function(){
     /* All entities here */
     Route::resource('customers', 'CustomerController');
     Route::resource('modules', 'ModuleController');
+    Route::resource('permissions', 'PermissionController');    
     Route::resource('persons', 'PersonController');
+    Route::post('tenants/modules', 'TenantController@modules');
     Route::resource('tenants', 'TenantController');
     Route::resource('users', 'UserController');
 

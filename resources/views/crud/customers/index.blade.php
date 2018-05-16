@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="col-lg-12 bg-light shadow-xs space-inside-md space-outside-up-xl space-inside-left-md">      
+    <div class="col-lg-12 bg-light shadow-xs space-inside-md space-outside-up-xl">      
         <h1 class="space-inside-left-sm"><strong class="text-color-main">Customers</strong> • beheren</h1> 
         
         <div v-cloak>        

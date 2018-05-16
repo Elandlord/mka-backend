@@ -9,7 +9,7 @@
                 <th></th>
                 <th></th>
                 @foreach($fields as $field)
-                    <th style="min-width: 135px;">{{ $field }}</th>
+                    <th style="min-width: 140px;">{{ $field }}</th>
                 @endforeach
             </tr>
         </thead>

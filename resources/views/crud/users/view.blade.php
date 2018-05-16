@@ -31,9 +31,11 @@
                         <label for="is_confirmed">Bevestigd</label>
                         <select class="form-control" name="is_confirmed" id="is_confirmed">
                             @if($user->is_confirmed)
-                                <option value="true">Bevestigd</option>
-                            @else
+                                <option value="true" selected>Bevestigd</option>
                                 <option value="false">Niet bevestigd</option>
+                            @else
+                                <option value="true">Bevestigd</option>                            
+                                <option value="false" selected>Niet bevestigd</option>
                             @endif
                         </select>
                     </div>

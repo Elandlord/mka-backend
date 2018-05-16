@@ -40,8 +40,8 @@ class User extends Model
         'Bevestigd',
         'Gemaakt op',
         'Gewijzigd op',
-        'Leesbaar gemaakt op',
-        'Leesbaar gewijzigd op',
+        'Leesbaar gemaakt',
+        'Leesbaar gewijzigd',
         'Real ID',
         'Verwijderd op',
     ];
