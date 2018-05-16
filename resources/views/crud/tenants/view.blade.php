@@ -8,8 +8,9 @@
 
         <div class="row space-outside-md">
             <div class="col-lg-6">
-                <form method="POST" action="/tenants">
+                <form method="POST" action="/tenants/{{ $tenant->id }}">
                     @csrf
+                    <input name="_method" type="hidden" value="PUT">                    
                     <div class="form-group">
                         <label for="name">Naam</label>
                         <input type="text" class="form-control" placeholder="Naam" name="name" id="name" value="{{ $tenant->name }}" required/>

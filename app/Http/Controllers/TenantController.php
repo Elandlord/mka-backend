@@ -102,7 +102,17 @@ class TenantController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tenant = Model::byId('tenants', $id);
+
+        $response = $tenant->update($request->all());
+
+        if($response != null) {
+            Toastr::success('U heeft zojuist een Tenant aangepast.', 'Gelukt!', ["positionClass" => "toast-top-right"]);
+            return redirect('/tenants');
+        }
+
+        $client = Client::getInstance();
+        var_dump($client->lastError);
     }
 
     /**

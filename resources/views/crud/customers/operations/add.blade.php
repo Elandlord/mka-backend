@@ -9,15 +9,17 @@
             <div class="form-group">
                 <label for="type">Type</label>
                 <select name="type" class="form-control" id="type">
-                    <option value="business">Business</option>
-                    <option value="business">Nog meer shizzle</option>
+                    @foreach($customer_types as $type)
+                        <option value="{{ $type }}">{{ ucfirst($type) }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group">
                 <label for="status">Status</label>
                 <select name="status" class="form-control" id="status">
-                    <option value="customer">Customer</option>
-                    <option value="blocked">Blocked</option>
+                    @foreach($customer_statuses as $status)
+                        <option value="{{ $status }}">{{ ucfirst($status) }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group">
@@ -33,8 +35,8 @@
                 <input type="text" class="form-control" placeholder="Website" name="website" id="website" required/>
             </div>
             <div class="form-group">
-                <label for="adress">Adres</label>
-                <input type="text" class="form-control" placeholder="Adres" name="adress" id="adress" required/>
+                <label for="address">Adres</label>
+                <input type="text" class="form-control" placeholder="Adres" name="address" id="address" required/>
             </div>
             <div class="form-group">
                 <label for="address2">Adres 2</label>
@@ -45,8 +47,8 @@
                 <input type="text" class="form-control" placeholder="Plaats" name="city" id="city" required/>
             </div>
             <div class="form-group">
-                <label for="disctrict">District</label>
-                <input type="text" class="form-control" placeholder="District" name="disctrict" id="disctrict" required/>
+                <label for="district">District</label>
+                <input type="text" class="form-control" placeholder="District" name="district" id="district" required/>
             </div>
             <div class="form-group">
                 <label for="postal_code">Postcode</label>

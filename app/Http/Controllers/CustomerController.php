@@ -17,30 +17,40 @@ use Toastr;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public $country_codes = [
+        "ABW","AFG","AGO","AIA","ALA","ALB","AND","ANT","ARE","ARG","ARM","ASM","ATA","ATF","ATG","AUS","AUT","AZE","BDI","BEL","BEN","BFA","BGD","BGR","BHR","BHS",
+        "BIH","BLM","BLR","BLZ","BMU","BOL","BRA","BRB","BRN","BTN","BVT","BWA","CAF","CAN","CCK","CHE","CHL","CHN","CIV","CMR","COD","COG","COK","COL","COM","CPV",
+        "CRI","CUB","CXR","CYM","CYP","CZE","DEU","DJI","DMA","DNK","DOM","DZA","ECU","EGY","ERI","ESH","ESP","EST","ETH","FIN","FJI","FLK","FRA","FRO","FSM","GAB",
+        "GBR","GEO","GGY","GHA","GIB","GIN","GLP","GMB","GNB","GNQ","GRC","GRD","GRL","GTM","GUF","GUM","GUY","HKG","HMD","HND","HRV","HTI","HUN","IDN","IMN","IND",
+        "IOT","IRL","IRN","IRQ","ISL","ISR","ITA","JAM","JEY","JOR","JPN","KAZ","KEN","KGZ","KHM","KIR","KNA","KOR","KWT","LAO","LBN","LBR","LBY","LCA","LIE","LKA",
+        "LSO","LTU","LUX","LVA","MAC","MAF","MAR","MCO","MDA","MDG","MDV","MEX","MHL","MKD","MLI","MLT","MMR","MNE","MNG","MNP","MOZ","MRT","MSR","MTQ","MUS","MWI",
+        "MYS","MYT","NAM","NCL","NER","NFK","NGA","NIC","NIU","NLD","NOR","NPL","NRU","NZL","OMN","PAK","PAN","PCN","PER","PHL","PLW","PNG","POL","PRI","PRK","PRT",
+        "PRY","PSE","PYF","QAT","REU","ROU","RUS","RWA","SAU","SDN","SEN","SGP","SGS","SHN","SJM","SLB","SLE","SLV","SMR","SOM","SPM","SRB","STP","SUR","SVK","SVN",
+        "SWE","SWZ","SYC","SYR","TCA","TCD","TGO","THA","TJK","TKL","TKM","TLS","TON","TTO","TUN","TUR","TUV","TWN","TZA","UGA","UKR","UMI","URY","USA","UZB","VAT",
+        "VCT","VEN","VGB","VIR","VNM","VUT","WLF","WSM","YEM","ZAF","ZMB","ZWE"
+    ];
+
+    public $currencies = [
+        "AED","AFN","ALL","AMD","ANG","AOA","ARS","AUD","AWG","AZN","BAM","BBD","BDT","BGN","BHD","BIF","BMD","BND","BOB","BRL","BSD","BTN","BWP","BYN","BZD","CAD",
+        "CDF","CHF","CLP","CNY","COP","CRC","CUC","CUP","CVE","CZK","DJF","DKK","DOP","DZD","EGP","ERN","ETB","EUR","FJD","FKP","GBP","GEL","GGP","GHS","GIP","GMD",
+        "GNF","GTQ","GYD","HKD","HNL","HRK","HTG","HUF","IDR","ILS","IMP","INR","IQD","IRR","ISK","JEP","JMD","JOD","JPY","KES","KGS","KHR","KMF","KPW","KRW","KWD",
+        "KYD","KZT","LAK","LBP","LKR","LRD","LSL","LYD","MAD","MDL","MGA","MKD","MMK","MNT","MOP","MRU","MUR","MVR","MWK","MXN","MYR","MZN","NAD","NGN","NIO","NOK",
+        "NPR","NZD","OMR","PAB","PEN","PGK","PHP","PKR","PLN","PYG","QAR","RON","RSD","RUB","RWF","SAR","SBD","SCR","SDG","SEK","SGD","SHP","SLL","SOS","SPL","SRD",
+        "STN","SVC","SYP","SZL","THB","TJS","TMT","TND","TOP","TRY","TTD","TVD","TWD","TZS","UAH","UGX","USD","UYU","UZS","VEF","VND","VUV","WST","XAF","XCD","XDR",
+        "XOF","XPF","YER","ZAR","ZMW","ZWD"
+    ];
+
+    public $customer_statuses = [
+        "customer", "prospect", "blocked", "canceled"
+    ];
+
+    public $customer_types = [
+        "business", "person"
+    ];
+
+    public function getContactPersons()
     {
-        $response = Model::all('customers', ['creator']);
-        $responseBranches = Model::all('branches', ['creator']);
         $responseContactPersons = Model::all('persons', ['creator']);
-
-        $customers = [];
-
-        foreach($response as $customer){
-            $newCustomer = $this->makeNewCustomer($customer);
-            array_push($customers, $newCustomer);
-        }
-
-        $branches = [];
-
-        foreach($responseBranches as $branch){
-            $newBranch = $this->makeNewBranch($branch);
-            array_push($branches, $newBranch);
-        }
 
         $contact_persons = [];
 
@@ -49,36 +59,60 @@ class CustomerController extends Controller
             array_push($contact_persons, $newPerson);
         }
 
+        return $contact_persons;
+    }
+
+    public function getBranches()
+    {
+        $responseBranches = Model::all('branches', ['creator']);        
+
+        $branches = [];
+
+        foreach($responseBranches as $branch){
+            $newBranch = $this->makeNewBranch($branch);
+            array_push($branches, $newBranch);
+        }
+
+        return $branches;
+    }
+
+    public function getCustomers()
+    {
+        $response = Model::all('customers', ['creator']);
+
+        $customers = [];
+
+        foreach($response as $customer){
+            $newCustomer = $this->makeNewCustomer($customer);
+            array_push($customers, $newCustomer);
+        }
+
+        return $customers;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $customers = $this->getCustomers();
+        $branches = $this->getBranches();
+        $contact_persons = $this->getContactPersons();
+
         $customers = collect($customers);
 
         $customer_fields = Customer::FIELDS;
 
         $entity_name = "customers";
 
-        $country_codes = [
-            "ABW","AFG","AGO","AIA","ALA","ALB","AND","ANT","ARE","ARG","ARM","ASM","ATA","ATF","ATG","AUS","AUT","AZE","BDI","BEL","BEN","BFA","BGD","BGR","BHR","BHS",
-            "BIH","BLM","BLR","BLZ","BMU","BOL","BRA","BRB","BRN","BTN","BVT","BWA","CAF","CAN","CCK","CHE","CHL","CHN","CIV","CMR","COD","COG","COK","COL","COM","CPV",
-            "CRI","CUB","CXR","CYM","CYP","CZE","DEU","DJI","DMA","DNK","DOM","DZA","ECU","EGY","ERI","ESH","ESP","EST","ETH","FIN","FJI","FLK","FRA","FRO","FSM","GAB",
-            "GBR","GEO","GGY","GHA","GIB","GIN","GLP","GMB","GNB","GNQ","GRC","GRD","GRL","GTM","GUF","GUM","GUY","HKG","HMD","HND","HRV","HTI","HUN","IDN","IMN","IND",
-            "IOT","IRL","IRN","IRQ","ISL","ISR","ITA","JAM","JEY","JOR","JPN","KAZ","KEN","KGZ","KHM","KIR","KNA","KOR","KWT","LAO","LBN","LBR","LBY","LCA","LIE","LKA",
-            "LSO","LTU","LUX","LVA","MAC","MAF","MAR","MCO","MDA","MDG","MDV","MEX","MHL","MKD","MLI","MLT","MMR","MNE","MNG","MNP","MOZ","MRT","MSR","MTQ","MUS","MWI",
-            "MYS","MYT","NAM","NCL","NER","NFK","NGA","NIC","NIU","NLD","NOR","NPL","NRU","NZL","OMN","PAK","PAN","PCN","PER","PHL","PLW","PNG","POL","PRI","PRK","PRT",
-            "PRY","PSE","PYF","QAT","REU","ROU","RUS","RWA","SAU","SDN","SEN","SGP","SGS","SHN","SJM","SLB","SLE","SLV","SMR","SOM","SPM","SRB","STP","SUR","SVK","SVN",
-            "SWE","SWZ","SYC","SYR","TCA","TCD","TGO","THA","TJK","TKL","TKM","TLS","TON","TTO","TUN","TUR","TUV","TWN","TZA","UGA","UKR","UMI","URY","USA","UZB","VAT",
-            "VCT","VEN","VGB","VIR","VNM","VUT","WLF","WSM","YEM","ZAF","ZMB","ZWE"
-        ];
+        $country_codes = $this->country_codes;
+        $currencies = $this->currencies;
+        $customer_statuses = $this->customer_statuses;
+        $customer_types = $this->customer_types;
 
-        $currencies = [
-            "AED","AFN","ALL","AMD","ANG","AOA","ARS","AUD","AWG","AZN","BAM","BBD","BDT","BGN","BHD","BIF","BMD","BND","BOB","BRL","BSD","BTN","BWP","BYN","BZD","CAD",
-            "CDF","CHF","CLP","CNY","COP","CRC","CUC","CUP","CVE","CZK","DJF","DKK","DOP","DZD","EGP","ERN","ETB","EUR","FJD","FKP","GBP","GEL","GGP","GHS","GIP","GMD",
-            "GNF","GTQ","GYD","HKD","HNL","HRK","HTG","HUF","IDR","ILS","IMP","INR","IQD","IRR","ISK","JEP","JMD","JOD","JPY","KES","KGS","KHR","KMF","KPW","KRW","KWD",
-            "KYD","KZT","LAK","LBP","LKR","LRD","LSL","LYD","MAD","MDL","MGA","MKD","MMK","MNT","MOP","MRU","MUR","MVR","MWK","MXN","MYR","MZN","NAD","NGN","NIO","NOK",
-            "NPR","NZD","OMR","PAB","PEN","PGK","PHP","PKR","PLN","PYG","QAR","RON","RSD","RUB","RWF","SAR","SBD","SCR","SDG","SEK","SGD","SHP","SLL","SOS","SPL","SRD",
-            "STN","SVC","SYP","SZL","THB","TJS","TMT","TND","TOP","TRY","TTD","TVD","TWD","TZS","UAH","UGX","USD","UYU","UZS","VEF","VND","VUV","WST","XAF","XCD","XDR",
-            "XOF","XPF","YER","ZAR","ZMW","ZWD"
-        ];
-
-        return view('crud.customers.index', compact('customers', 'customer_fields', 'entity_name', 'country_codes', 'currencies', 'branches', 'contact_persons'));
+        return view('crud.customers.index', compact('customers', 'customer_fields', 'entity_name', 'country_codes', 'currencies', 'branches', 'contact_persons', 'customer_statuses', 'customer_types'));
     }
 
     /**
@@ -122,7 +156,15 @@ class CustomerController extends Controller
 
         $customer = $this->makeNewCustomer($response);
 
-        return view('crud.customers.view', compact('customer'));
+        $branches = $this->getBranches();
+        $contact_persons = $this->getContactPersons();
+
+        $country_codes = $this->country_codes;
+        $currencies = $this->currencies;
+        $customer_statuses = $this->customer_statuses;
+        $customer_types = $this->customer_types;
+
+        return view('crud.customers.view', compact('customer', 'branches', 'contact_persons', 'country_codes', 'currencies', 'customer_statuses', 'customer_types'));
     }
 
     /**
@@ -145,7 +187,17 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $customer = Model::byId('customers', $id);
+        $response = $customer->update($request->all());
+        
+
+        if($response != null) {
+            Toastr::success('U heeft zojuist een Customer aangepast.', 'Gelukt!', ["positionClass" => "toast-top-right"]);
+            return redirect('/customers');
+        }
+
+        $client = Client::getInstance();
+        var_dump($client->lastError);
     }
 
     /**

@@ -8,19 +8,38 @@
 
         <div class="row space-outside-md">
             <div class="col-lg-6">
-                <form method="POST" action="/customers">
+                <form method="POST" action="/customers/{{ $customer->id }}">
                     @csrf
+                    <input name="_method" type="hidden" value="PUT">
                     <div class="form-group">
                         <label for="name">Naam</label>
                         <input type="text" class="form-control" placeholder="Naam" name="name" id="name" value="{{ $customer->name }}" required/>
                     </div>
                     <div class="form-group">
+                        {{-- To-do: add foreach with types -> check if selected --}}
                         <label for="type">Type</label>
-                        <input type="text" class="form-control" placeholder="Type" name="type" id="type" value="{{ $customer->type }}" required/>
+                        <select name="type" class="form-control" id="type">
+                            @foreach($customer_types as $type)
+                                @if($customer->type == $type)
+                                    <option value="{{ $type }}" selected>{{ ucfirst($type) }}</option>                                    
+                                @else
+                                    <option value="{{ $type }}">{{ ucfirst($type) }}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
+                        {{-- To-do: add foreach with statuses -> check if selected --}}
                         <label for="status">Status</label>
-                        <input type="text" class="form-control" placeholder="Status" name="status" id="status" value="{{ $customer->status }}" required/>
+                        <select name="status" class="form-control" id="status">
+                            @foreach($customer_statuses as $status)
+                                @if($customer->status == $status)
+                                    <option value="{{ $status }}" selected>{{ ucfirst($status) }}</option>                                    
+                                @else
+                                    <option value="{{ $status }}">{{ ucfirst($status) }}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -35,8 +54,8 @@
                         <input type="text" class="form-control" placeholder="Website" name="website" id="website" value="{{ $customer->website }}" required/>
                     </div>
                     <div class="form-group">
-                        <label for="adress">Adres</label>
-                        <input type="text" class="form-control" placeholder="Adres" name="adress" id="adress" value="{{ $customer->address }}" required/>
+                        <label for="address">Adres</label>
+                        <input type="text" class="form-control" placeholder="Adres" name="address" id="address" value="{{ $customer->address }}" required/>
                     </div>
                     <div class="form-group">
                         <label for="address2">Adres 2</label>
@@ -56,7 +75,15 @@
                     </div>
                     <div class="form-group">
                         <label for="country_code">Landcode</label>
-                        <input type="text" class="form-control" placeholder="Landcode" name="country_code" id="country_code" value="{{ $customer->country_code }}" required/>
+                        <select name="country_code" id="country_code" class="form-control">
+                            @foreach($country_codes as $country_code)
+                                @if($country_code == $customer->country_code)
+                                    <option value="{{ $country_code }}" selected>{{ $country_code}}</option>
+                                @else
+                                    <option value="{{ $country_code }}">{{ $country_code}}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="mailing_address">Postbus adres</label>
@@ -80,7 +107,15 @@
                     </div>
                     <div class="form-group">
                         <label for="mailing_country_code">Postbus landcode</label>
-                        <input type="text" class="form-control" placeholder="Postbus landcode" name="mailing_country_code" id="mailing_country_code" value="{{ $customer->mailing_country_code }}" required/>
+                        <select name="mailing_country_code" id="mailing_country_code" class="form-control">
+                            @foreach($country_codes as $country_code)
+                                @if($country_code == $customer->mailing_country_code)
+                                    <option value="{{ $country_code }}" selected>{{ $country_code}}</option>
+                                @else
+                                    <option value="{{ $country_code }}">{{ $country_code}}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="fiscal_number">Fiscaal nummer</label>
@@ -112,7 +147,15 @@
                     </div>
                     <div class="form-group">
                         <label for="currency">Valuta</label>
-                        <input type="text" class="form-control" placeholder="Valuta" name="currency" id="currency" value="{{ $customer->currency }}" required/>
+                        <select name="currency" id="currency" class="form-control">
+                            @foreach($currencies as $currency)
+                                @if($currency == $customer->currency)
+                                    <option value="{{ $currency }}" selected>{{ $currency}}</option>                                    
+                                @else
+                                    <option value="{{ $currency }}">{{ $currency}}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="pay_term">Betalingstermijn</label>
@@ -127,12 +170,28 @@
                         <input type="text" class="form-control" placeholder="Locatie" name="location" id="location" value="{{ $customer->location }}" required/>
                     </div>
                     <div class="form-group">
-                        <label for="branch_id">Branch ID</label>
-                        <input type="text" class="form-control" placeholder="Branch ID" name="branch_id" id="branch_id" value="{{ $customer->branch_id }}" required/>
+                        <label for="branch_id">Branch</label>
+                        <select name="branch_id" id="branch_id" class="form-control">
+                            @foreach($branches as $branch)
+                                @if($branch->id == $customer->branch_id)
+                                    <option value="{{ $branch->id }}" selected>{{ $branch->name }}</option>                                    
+                                @else
+                                    <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="contact_person_id">Contactpersoon ID</label>
-                        <input type="text" class="form-control" placeholder="Contactpersoon ID" name="contact_person_id" id="contact_person_id" value="{{ $customer->contact_person_id }}" required/>
+                        <label for="contact_person_id">Contactpersoon</label>
+                        <select name="contact_person_id" id="contact_person_id" class="form-control">
+                            @foreach($contact_persons as $person)
+                                @if($person->id == $customer->contact_person_id)
+                                    <option value="{{ $person->id }}" selected>{{ $person->first_name }} {{ $person->last_name }}</option>                                    
+                                @else
+                                    <option value="{{ $person->id }}">{{ $person->first_name }} {{ $person->last_name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <button class="btn bg-secondary bg-secondary-hover-lighten-xs transition-fast text-color-light">Opslaan</button>
