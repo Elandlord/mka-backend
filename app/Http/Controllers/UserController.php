@@ -185,12 +185,19 @@ class UserController extends Controller
 
     public function permissions(Request $request)
     {
-        $name = $request->get('first_name') . " " . $request->get('last_name');
+        if($insertion = $request->get('user_insertion')){
+            $name = $request->get('user_first_name') . " ". $insertion  ." ". $request->get('user_last_name');
+        }else{
+            $name = $request->get('user_first_name') ." ". $request->get('user_last_name');
+        }
+
+
+        $user_id = $request->get('user_id');
         $permissions = $request->get('permissions');
 
         // To-do SYNC permissions
 
-        Toastr::success("U heeft de permissions voor ". $name ." succesvol aangepast", 'Gelukt!', ["positionClass" => "toast-top-right"]);
+        Toastr::success("U heeft de permissions van ". $name ." succesvol aangepast", 'Gelukt!', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
 }

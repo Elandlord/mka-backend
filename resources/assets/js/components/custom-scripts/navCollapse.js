@@ -7,6 +7,7 @@ $(document).ready(function() {
             if(!opened) {           
                 $(this).removeClass('in');
             }else{
+                $(this).addClass('in show');
                 $('#' + id[0].id + '-caret-right').addClass('rotated');
             }
         }
@@ -19,11 +20,11 @@ $(document).ready(function() {
             let opened = _.indexOf(element[0].classList, 'collapsed');
             opened = (opened === -1) ? true : false;
             if(opened){
-                $(element.data()['target'] + '-caret-right').addClass('rotated');
                 $(element.data()['target']).addClass('in');
+                $(element.data()['target'] + '-caret-right').addClass('rotated');
             }else{
-                $(element.data()['target'] + '-caret-right').removeClass('rotated'); 
                 $(element.data()['target']).removeClass('in');
+                $(element.data()['target'] + '-caret-right').removeClass('rotated'); 
             }
             localStorage.setItem(element.data()['target'].replace('#', ''), opened);
         }, 0);
