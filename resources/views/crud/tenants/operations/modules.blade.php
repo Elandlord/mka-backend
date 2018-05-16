@@ -10,27 +10,22 @@
                         <th></th>
                     </tr>
                 </thead>
-                    
-                        <input type="hidden" name="tenant_id" value="{{ $object->id }}" />
-                        <input type="hidden" name="tenant_name" value="{{ $object->name }}" />
-                        <tr>           
-                            <td>
-                                @foreach($modules as $i => $module)    
-                                    {{-- To-do, see if checked. --}}
-                                    <span class="space-inside-sides-sm">                          
-                                        <label for="{{ $module->id }}{{ $object->name }}">{{ $module->name }}</label>
-                                        <input type="checkbox" name="modules[]" value="{{ $module->id }}" id="{{ $module->id }}{{ $object->name }}" />
-                                    </span>         
-                                    @if((($i + 1) % 5) == 0)
-                                        <br/>
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>
-                                <button class="btn bg-secondary bg-secondary-hover-lighten-xs transition-fast text-color-light">Opslaan</button>
-                            </td>
-                        </tr>
-                    
+                <input type="hidden" name="tenant_id" value="{{ $object->id }}" />
+                <input type="hidden" name="tenant_name" value="{{ $object->name }}" />
+                <tr>           
+                    <td>
+                        @foreach($modules as $i => $module)    
+                            {{-- To-do, see if checked. --}}
+                            <div class="col-lg-4">      
+                                <label class="pointer text-regular" for="{{ $module->id }}{{ $object->name }}">{{ $module->name }}</label>
+                                <input style="position: relative; top: 2px;" type="checkbox" name="modules[]" value="{{ $module->id }}" id="{{ $module->id }}{{ $object->name }}" />                                  
+                            </div>                        
+                        @endforeach
+                    </td>
+                    <td>
+                        <button class="btn bg-secondary bg-secondary-hover-lighten-xs transition-fast text-color-light">Opslaan</button>
+                    </td>
+                </tr>
             </table>
         </form>  
     @endforeach

@@ -9,6 +9,8 @@ use HelloHi\ApiClient\Model;
 
 use App\Models\Permission;
 
+use Toastr;
+
 class PermissionController extends Controller
 {
     public function getPermissions()
@@ -61,7 +63,16 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $response = Model::create('permissions', $request->all());
+        
+        if($response != null) {
+            Toastr::success('U heeft zojuist een Permission toegevoegd.', 'Gelukt!', ["positionClass" => "toast-top-right"]);
+            return redirect('/permissions');
+        }
+
+        $client = Client::getInstance();
+        Toastr::error("Er is iets misgegaan. Error: ". $client->lastError, 'Mislukt!', ["positionClass" => "toast-top-right"]);
+        return redirect('/permissions');
     }
 
     /**
@@ -72,7 +83,11 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        //
+        $response = Model::byId('permissions', $id);
+
+        $permission = $this->makeNewPermission($response);
+
+        return view('crud.permissions.view', compact('permission'));
     }
 
     /**
@@ -106,7 +121,11 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $permission = Model::byId('permissions', $id);
+        $permission->delete();
+
+        Toastr::success('U heeft zojuist een Permission verwijderd.', 'Gelukt!', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
     }
 
     public function makeNewPermission($permission)

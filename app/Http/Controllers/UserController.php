@@ -8,11 +8,26 @@ use HelloHi\ApiClient\Client;
 use HelloHi\ApiClient\Model;
 
 use App\Models\User;
+use App\Models\Permission;
 
 use Toastr;
 
 class UserController extends Controller
 {
+    public function getPermissions()
+    {
+        $response = Model::all('permissions', ['creator']);
+
+        $permissions = [];
+
+        foreach($response as $permission){
+            $newPermission = $this->makeNewPermission($permission);
+            array_push($permissions, $newPermission);
+        }
+
+        return $permissions;
+    }
+
     public function getUsers()
     {
         $response = Model::all('users', ['creator']);
@@ -35,6 +50,7 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->getUsers();
+        $permissions = $this->getPermissions();
 
         $users = collect($users);
 
@@ -42,7 +58,7 @@ class UserController extends Controller
 
         $entity_name = "users";
 
-        return view('crud.users.index', compact('users', 'user_fields', 'entity_name'));
+        return view('crud.users.index', compact('users', 'permissions', 'user_fields', 'entity_name'));
     }
 
     /**
@@ -71,7 +87,8 @@ class UserController extends Controller
         }
 
         $client = Client::getInstance();
-        var_dump($client->lastError);
+        Toastr::error("Er is iets misgegaan. Error: ". $client->lastError, 'Mislukt!', ["positionClass" => "toast-top-right"]);
+        return redirect('/users');
     }
 
     /**
@@ -119,7 +136,8 @@ class UserController extends Controller
         }
 
         $client = Client::getInstance();
-        var_dump($client->lastError);
+        Toastr::error("Er is iets misgegaan. Error: ". $client->lastError, 'Mislukt!', ["positionClass" => "toast-top-right"]);
+        return redirect('/users');
     }
 
     /**
@@ -153,5 +171,26 @@ class UserController extends Controller
         $newUser->real_id = $user->real_id;
         $newUser->deleted_at = $user->deleted_at;
         return $newUser;
+    }
+
+    public function makeNewPermission($permission)
+    {
+        $newPermission = new Permission;
+        $newPermission->id = $permission->id;
+        $newPermission->name = $permission->name;
+        $newPermission->description = $permission->description;
+        $newPermission->display_name = $permission->display_name;
+        return $newPermission;
+    }
+
+    public function permissions(Request $request)
+    {
+        $name = $request->get('first_name') . " " . $request->get('last_name');
+        $permissions = $request->get('permissions');
+
+        // To-do SYNC permissions
+
+        Toastr::success("U heeft de permissions voor ". $name ." succesvol aangepast", 'Gelukt!', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
     }
 }
