@@ -87,7 +87,9 @@ class CustomerController extends Controller
             array_push($customers, $newCustomer);
         }
 
-        return $customers;
+        $pagiantedCustomers = $this->paginate($customers, 2);
+
+        return $pagiantedCustomers;
     }
 
     /**
@@ -100,8 +102,6 @@ class CustomerController extends Controller
         $customers = $this->getCustomers();
         $branches = $this->getBranches();
         $contact_persons = $this->getContactPersons();
-
-        $customers = collect($customers);
 
         $customer_fields = Customer::FIELDS;
 

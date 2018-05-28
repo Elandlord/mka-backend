@@ -28,12 +28,7 @@ class TenantController extends Controller
         return $modules;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function getTenants()
     {
         $response = Model::all('tenants', ['creator']);
 
@@ -44,7 +39,19 @@ class TenantController extends Controller
             array_push($tenants, $newTenant);
         }
 
-        $tenants = collect($tenants);
+        $paginatedTenants = $this->paginate($tenants, 2);
+
+        return $paginatedTenants;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $tenants = $this->getTenants();
 
         $modules = $this->getModules();
 

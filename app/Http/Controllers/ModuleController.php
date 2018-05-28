@@ -24,7 +24,9 @@ class ModuleController extends Controller
             array_push($modules, $newModule);
         }
 
-        return $modules;
+        $paginatedModules = $this->paginate($modules, 15);
+
+        return $paginatedModules;
     }
 
     /**
@@ -35,8 +37,6 @@ class ModuleController extends Controller
     public function index()
     {
         $modules = $this->getModules();
-
-        $modules = collect($modules);
 
         $module_fields = Module::FIELDS;
 

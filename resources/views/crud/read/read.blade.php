@@ -2,6 +2,10 @@
     <h4>{{$errors->first()}}</h4>
 @endif
 
+<div>
+    {{ $objects->links() }}
+</div>
+
 <div class="table-responsive">
     <table class="table table-striped table-hover">
         <thead class="bg-main">        

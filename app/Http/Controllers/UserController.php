@@ -39,7 +39,9 @@ class UserController extends Controller
             array_push($users, $newUser);
         }
 
-        return $users;
+        $paginatedUsers = $this->paginate($users, 3);
+
+        return $paginatedUsers;
     }
 
     /**
@@ -51,8 +53,6 @@ class UserController extends Controller
     {
         $users = $this->getUsers();
         $permissions = $this->getPermissions();
-
-        $users = collect($users);
 
         $user_fields = User::FIELDS;
 
@@ -196,6 +196,7 @@ class UserController extends Controller
         $permissions = $request->get('permissions');
 
         // To-do SYNC permissions
+        
 
         Toastr::success("U heeft de permissions van ". $name ." succesvol aangepast", 'Gelukt!', ["positionClass" => "toast-top-right"]);
         return redirect()->back();

@@ -24,7 +24,9 @@ class PermissionController extends Controller
             array_push($permissions, $newPermission);
         }
 
-        return $permissions;
+        $paginatedPermissions = $this->paginate($permissions, 15);
+
+        return $paginatedPermissions;
     }
 
     /**
@@ -35,8 +37,6 @@ class PermissionController extends Controller
     public function index()
     {
         $permissions = $this->getPermissions();
-
-        $permissions = collect($permissions);
 
         $permission_fields = Permission::FIELDS;
 
