@@ -29,8 +29,8 @@ class Controller extends BaseController
 
     function paginate($items, $perPage)
     {
-        $pageStart           = request('page', 1);
-        $offSet              = ($pageStart * $perPage) - $perPage;
+        $pageStart = request('page', 1);
+        $offSet = ($pageStart * $perPage) - $perPage;
         $itemsForCurrentPage = array_slice($items, $offSet, $perPage, TRUE);
 
         return new \Illuminate\Pagination\LengthAwarePaginator(
