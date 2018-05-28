@@ -9,6 +9,8 @@ use HelloHi\ApiClient\Model;
 
 use App\Models\Module;
 
+use Carbon\Carbon;
+
 use Toastr;
 
 class ModuleController extends Controller
@@ -148,8 +150,8 @@ class ModuleController extends Controller
         $newModule->key = $module->key;
         $newModule->priority = $module->priority;
         $newModule->is_active = $module->is_active;
-        $newModule->created_at = $module->created_at;
-        $newModule->updated_at = $module->updated_at;
+        $newModule->created_at = Carbon::createFromTimestamp($module->created_at);
+        $newModule->updated_at = Carbon::createFromTimestamp($module->updated_at);
         $newModule->real_id = $module->real_id;
         return $newModule;
     }

@@ -191,7 +191,18 @@ class TenantController extends Controller
         $tenant_name = $request->get('tenant_name');
         $modules = $request->get('modules');
 
+        $data = [
+            "tenant_id" => $tenant_id,
+            "modules_ids" => $modules,
+        ];
+
+        $client = Client::getInstance();
+
         // To-do Sync modules
+        $response = $client->post('modules/sync', $data);
+        
+        dd($response);
+
         
         $implode = implode(", ", $modules);
 
