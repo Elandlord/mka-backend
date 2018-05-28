@@ -25,7 +25,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('tenants/modules', 'TenantController@modules');
     Route::resource('tenants', 'TenantController');
     Route::resource('users', 'UserController');
-    Route::post('users/permissions', 'UserController@permissions');
+    // Route::post('users/permissions', 'UserController@permissions');
+    Route::post('users/roles', 'UserController@roles');
 
     Route::get('/logout', 'LogoutController@index');
 });

@@ -37,10 +37,12 @@
                 </td>
                 <?php $vars = get_object_vars($object); ?>
                 @foreach($vars as $key=>$var) 
-                    @if($var == "")
-                        <td><strong>-</strong></td>                    
-                    @else
-                        <td>{{ $var }}</td>
+                    @if(!is_array($var))
+                        @if($var == "")
+                            <td><strong>-</strong></td>                    
+                        @else
+                            <td>{{ $var }}</td>
+                        @endif
                     @endif
                 @endforeach
             </tr>

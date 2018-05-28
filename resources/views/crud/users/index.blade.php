@@ -12,8 +12,8 @@
                 <tab name="User toevoegen">
                     @include('crud.users.operations.add')
                 </tab>
-                <tab name="Permissies per User">
-                    @include('crud.users.operations.permissions')
+                <tab name="Roles per User">
+                    @include('crud.users.operations.roles')
                 </tab>
             </tabs>
         </div>

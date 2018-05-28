@@ -9,6 +9,7 @@ use HelloHi\ApiClient\Model;
 
 use App\Models\User;
 use App\Models\Permission;
+use App\Models\Role;
 
 use Toastr;
 
@@ -28,14 +29,29 @@ class UserController extends Controller
         return $permissions;
     }
 
+    public function getRoles()
+    {
+        $response = Model::all('roles', ['creator']);
+
+        $roles = [];
+
+        foreach($response as $role){
+            $newRole = $this->makeNewRole($role);
+            array_push($roles, $newRole);
+        }
+
+        return $roles;
+    }
+
     public function getUsers()
     {
-        $response = Model::all('users', ['creator']);
+        $response = Model::all('users', ['creator', 'roles']);
 
         $users = [];
 
         foreach($response as $user){
             $newUser = $this->makeNewUser($user);
+            $newUser->roles = collect($user->roles)->pluck('id')->toArray();
             array_push($users, $newUser);
         }
 
@@ -52,13 +68,13 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->getUsers();
-        $permissions = $this->getPermissions();
+        $roles = $this->getRoles();
 
         $user_fields = User::FIELDS;
 
         $entity_name = "users";
 
-        return view('crud.users.index', compact('users', 'permissions', 'user_fields', 'entity_name'));
+        return view('crud.users.index', compact('users', 'roles', 'user_fields', 'entity_name'));
     }
 
     /**
@@ -183,7 +199,18 @@ class UserController extends Controller
         return $newPermission;
     }
 
-    public function permissions(Request $request)
+    public function makeNewRole($role)
+    {
+        $newRole = new Role;
+        $newRole->id = $role->id;
+        $newRole->name = $role->name;
+        $newRole->description = $role->description;
+        $newRole->display_name = $role->display_name;
+        $newRole->permissions = $role->permissions;
+        return $newRole;
+    }
+
+    public function roles(Request $request)
     {
         if($insertion = $request->get('user_insertion')){
             $name = $request->get('user_first_name') . " ". $insertion  ." ". $request->get('user_last_name');
@@ -193,12 +220,18 @@ class UserController extends Controller
 
 
         $user_id = $request->get('user_id');
-        $permissions = $request->get('permissions');
+        $roles_ids = $request->get('roles');
 
-        // To-do SYNC permissions
-        
+        $client = Client::getInstance();
 
-        Toastr::success("U heeft de permissions van ". $name ." succesvol aangepast", 'Gelukt!', ["positionClass" => "toast-top-right"]);
+        $data = [
+            "user_id" => $user_id,
+            "roles_ids" => $roles_ids
+        ];
+
+        $response = $client->post('roles/sync', $data);
+
+        Toastr::success("U heeft de roles van ". $name ." succesvol aangepast", 'Gelukt!', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
 }
