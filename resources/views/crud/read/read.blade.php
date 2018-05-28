@@ -43,6 +43,17 @@
                         @else
                             <td>{{ $var }}</td>
                         @endif
+                    @else
+                        <td>    
+                            @foreach($var as $field)
+                                @if($field == "")
+                                    <strong>-</strong>                  
+                                @else
+                                    - {{ $field }}
+                                @endif
+                                <br/>
+                            @endforeach
+                        </td>
                     @endif
                 @endforeach
             </tr>

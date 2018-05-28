@@ -29,6 +29,7 @@ class User extends Model
         'social_nickname',
         'is_confirmed',
         'is_client',
+        'roles',
     ];
 
     const FIELDS = [
@@ -44,6 +45,7 @@ class User extends Model
         'Gewijzigd op',
         'Real ID',
         'Verwijderd op',
+        'Roles',
     ];
 
     protected $dates = [

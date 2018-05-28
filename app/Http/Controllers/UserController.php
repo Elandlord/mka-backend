@@ -51,7 +51,6 @@ class UserController extends Controller
 
         foreach($response as $user){
             $newUser = $this->makeNewUser($user);
-            $newUser->roles = collect($user->roles)->pluck('id')->toArray();
             array_push($users, $newUser);
         }
 
@@ -186,6 +185,7 @@ class UserController extends Controller
         $newUser->readable_updated_at = $user->readable_updated_at;
         $newUser->real_id = $user->real_id;
         $newUser->deleted_at = $user->deleted_at;
+        $newUser->roles = collect($user->roles)->pluck('id')->toArray();
         return $newUser;
     }
 
