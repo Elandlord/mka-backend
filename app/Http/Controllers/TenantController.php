@@ -30,7 +30,9 @@ class TenantController extends Controller
 
     public function getTenants()
     {
-        $response = Model::all('tenants', ['creator']);
+        $currentPage = request()->get('page');
+        $perPage = 15;
+        $response = Model::all('tenants', ['creator', 'modules'], $perPage, $currentPage);
 
         $tenants = [];
 
@@ -39,9 +41,13 @@ class TenantController extends Controller
             array_push($tenants, $newTenant);
         }
 
-        $paginatedTenants = $this->paginate($tenants, 2);
+        $range = range(1, $response->total());
+        $pagination = $this->paginate($range, $perPage);
 
-        return $paginatedTenants;
+        return [
+            "pagination" => $pagination,
+            "tenants" => $tenants
+        ];
     }
 
     /**
@@ -51,7 +57,10 @@ class TenantController extends Controller
      */
     public function index()
     {
-        $tenants = $this->getTenants();
+        $response = $this->getTenants();
+
+        $pagination = $response['pagination'];
+        $tenants = $response['tenants'];
 
         $modules = $this->getModules();
 
@@ -59,7 +68,7 @@ class TenantController extends Controller
 
         $entity_name = "tenants";
 
-        return view('crud.tenants.index', compact('tenants', 'tenant_fields', 'entity_name', 'modules'));
+        return view('crud.tenants.index', compact('tenants', 'tenant_fields', 'entity_name', 'modules', 'pagination'));
     }
 
     /**

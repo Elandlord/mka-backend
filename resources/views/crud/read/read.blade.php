@@ -3,7 +3,9 @@
 @endif
 
 <div>
-    {{ $objects->links() }}
+    @if($pagination != null)
+        {{ $pagination->links() }}
+    @endif
 </div>
 
 <div class="table-responsive">

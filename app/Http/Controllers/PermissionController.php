@@ -15,7 +15,9 @@ class PermissionController extends Controller
 {
     public function getPermissions()
     {
-        $response = Model::all('permissions', ['creator']);
+        $currentPage = request()->get('page');
+        $perPage = 15;
+        $response = Model::all('permissions', ['creator'], $perPage, $currentPage);
 
         $permissions = [];
 
@@ -24,9 +26,13 @@ class PermissionController extends Controller
             array_push($permissions, $newPermission);
         }
 
-        $paginatedPermissions = $this->paginate($permissions, 15);
-
-        return $paginatedPermissions;
+        $range = range(1, $response->total());
+        $pagination = $this->paginate($range, $perPage);
+    
+        return [
+            "pagination" => $pagination,
+            "permissions" => $permissions
+        ];
     }
 
     /**
@@ -36,13 +42,16 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = $this->getPermissions();
+        $response = $this->getPermissions();
+
+        $pagination = $response['pagination'];
+        $permissions = $response['permissions'];
 
         $permission_fields = Permission::FIELDS;
 
         $entity_name = "permissions";
 
-        return view('crud.permissions.index', compact('permissions', 'permission_fields', 'entity_name'));        
+        return view('crud.permissions.index', compact('permissions', 'permission_fields', 'entity_name', 'pagination'));        
     }
 
     /**

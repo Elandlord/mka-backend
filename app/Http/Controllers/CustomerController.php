@@ -73,12 +73,15 @@ class CustomerController extends Controller
             array_push($branches, $newBranch);
         }
 
+
         return $branches;
     }
 
     public function getCustomers()
     {
-        $response = Model::all('customers', ['creator']);
+        $currentPage = request()->get('page');
+        $perPage = 15;
+        $response = Model::all('customers', ['creator'], $perPage, $currentPage);
 
         $customers = [];
 
@@ -87,9 +90,13 @@ class CustomerController extends Controller
             array_push($customers, $newCustomer);
         }
 
-        $pagiantedCustomers = $this->paginate($customers, 2);
+        $range = range(1, $response->total());
+        $pagination = $this->paginate($range, $perPage);
 
-        return $pagiantedCustomers;
+        return [
+            "pagination" => $pagination,
+            "customers" => $customers
+        ];
     }
 
     /**
@@ -99,7 +106,11 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = $this->getCustomers();
+        $response = $this->getCustomers();
+
+        $pagination = $response['pagination'];
+        $customers = $response['customers'];
+
         $branches = $this->getBranches();
         $contact_persons = $this->getContactPersons();
 
@@ -112,7 +123,7 @@ class CustomerController extends Controller
         $customer_statuses = $this->customer_statuses;
         $customer_types = $this->customer_types;
 
-        return view('crud.customers.index', compact('customers', 'customer_fields', 'entity_name', 'country_codes', 'currencies', 'branches', 'contact_persons', 'customer_statuses', 'customer_types'));
+        return view('crud.customers.index', compact('customers', 'customer_fields', 'entity_name', 'country_codes', 'currencies', 'branches', 'contact_persons', 'customer_statuses', 'customer_types', 'pagination'));
     }
 
     /**

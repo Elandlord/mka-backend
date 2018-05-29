@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Models\Permission;
 use App\Models\Role;
 
+use Carbon\Carbon;
+
 use Toastr;
 
 class UserController extends Controller
@@ -45,7 +47,9 @@ class UserController extends Controller
 
     public function getUsers()
     {
-        $response = Model::all('users', ['creator', 'roles']);
+        $currentPage = request()->get('page');
+        $perPage = 15;
+        $response = Model::all('users', ['creator', 'roles'], $perPage, $currentPage);
 
         $users = [];
 
@@ -54,9 +58,14 @@ class UserController extends Controller
             array_push($users, $newUser);
         }
 
-        $paginatedUsers = $this->paginate($users, 3);
+        $range = range(1, $response->total());
+        $pagination = $this->paginate($range, $perPage);
 
-        return $paginatedUsers;
+
+        return [
+            "pagination" => $pagination,
+            "users" => $users
+        ];
     }
 
     /**
@@ -66,14 +75,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->getUsers();
+        $response = $this->getUsers();
+
+        $pagination = $response['pagination'];
+        $users = $response['users'];
+
         $roles = $this->getRoles();
 
         $user_fields = User::FIELDS;
 
         $entity_name = "users";
 
-        return view('crud.users.index', compact('users', 'roles', 'user_fields', 'entity_name'));
+        return view('crud.users.index', compact('users', 'roles', 'user_fields', 'entity_name', 'pagination'));
     }
 
     /**
@@ -179,8 +192,8 @@ class UserController extends Controller
         $newUser->insertion = $user->insertion;
         $newUser->email = $user->email;
         $newUser->is_confirmed = $user->is_confirmed;
-        $newUser->created_at = $user->created_at;
-        $newUser->updated_at = $user->updated_at;
+        $newUser->created_at = Carbon::createFromTimestamp($user->created_at);
+        $newUser->updated_at = Carbon::createFromTimestamp($user->updated_at);
         $newUser->readable_created_at = $user->readable_created_at;
         $newUser->readable_updated_at = $user->readable_updated_at;
         $newUser->real_id = $user->real_id;

@@ -7,7 +7,7 @@
         <div v-cloak>
             <tabs>
                 <tab name="Alle tenants">
-                    @include('crud.read.read', ['objects' => $tenants, 'fields' => $tenant_fields])
+                    @include('crud.read.read', ['objects' => $tenants, 'fields' => $tenant_fields, 'pagination' => $pagination])
                 </tab>
                 <tab name="Tenant toevoegen">
                     @include('crud.tenants.operations.add')

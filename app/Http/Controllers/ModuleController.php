@@ -17,7 +17,9 @@ class ModuleController extends Controller
 {
     public function getModules()
     {
-        $response = Model::all('modules', ['creator']);
+        $currentPage = request()->get('page');
+        $perPage = 15;
+        $response = Model::all('modules', ['creator'], $perPage, $currentPage);
 
         $modules = [];
 
@@ -26,9 +28,14 @@ class ModuleController extends Controller
             array_push($modules, $newModule);
         }
 
-        $paginatedModules = $this->paginate($modules, 15);
+        $range = range(1, $response->total());
+        $pagination = $this->paginate($range, $perPage);
 
-        return $paginatedModules;
+
+        return [
+            "pagination" => $pagination,
+            "modules" => $modules
+        ];
     }
 
     /**
@@ -38,13 +45,16 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        $modules = $this->getModules();
+        $response = $this->getModules();
+
+        $pagination = $response['pagination'];
+        $modules = $response['modules'];
 
         $module_fields = Module::FIELDS;
 
         $entity_name = "modules";
 
-        return view('crud.modules.index', compact('modules', 'module_fields', 'entity_name'));
+        return view('crud.modules.index', compact('modules', 'module_fields', 'entity_name', 'pagination'));
     }
 
     /**
