@@ -8,9 +8,28 @@ use HelloHi\ApiClient\Client;
 use HelloHi\ApiClient\Model;
 
 use App\Models\Person;
+use App\Models\User;
+
+use Carbon\Carbon;
+
+use Toastr;
 
 class PersonController extends Controller
 {
+    public function getUsers()
+    {
+        $response = Model::all('users', ['creator', 'roles']);
+
+        $users = [];
+
+        foreach($response as $user){
+            $newUser = $this->makeNewUser($user);
+            array_push($users, $newUser);
+        }
+
+        return $users;
+    }
+
     public function getPersons()
     {
         $currentPage = request()->get('page');
@@ -26,7 +45,6 @@ class PersonController extends Controller
 
         $range = range(1, $response->total());
         $pagination = $this->paginate($range, $perPage);
-
 
         return [
             "pagination" => $pagination,
@@ -46,11 +64,13 @@ class PersonController extends Controller
         $pagination = $response['pagination'];
         $persons = $response['persons'];
 
+        $users = $this->getUsers();
+
         $person_fields = Person::FIELDS;
 
         $entity_name = "persons";
 
-        return view('crud.persons.index', compact('persons', 'person_fields', 'entity_name', 'pagination'));
+        return view('crud.persons.index', compact('persons', 'users', 'person_fields', 'entity_name', 'pagination'));
     }
 
     /**
@@ -71,7 +91,17 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $response = Model::create('persons', $request->all());
+     
+        
+        if($response != null) {
+            Toastr::success('U heeft zojuist een Person toegevoegd.', 'Gelukt!', ["positionClass" => "toast-top-right"]);
+            return redirect()->back();
+        }
+        
+        $client = Client::getInstance();
+        Toastr::error("Er is iets misgegaan. Error: ". $client->lastError, 'Mislukt!', ["positionClass" => "toast-top-right"]);
+        return redirect('/persons');
     }
 
     /**
@@ -82,7 +112,13 @@ class PersonController extends Controller
      */
     public function show($id)
     {
-        //
+        $response = Model::byId('persons', $id);
+
+        $person = $this->makeNewPerson($response);
+
+        $users = $this->getUsers();
+
+        return view('crud.persons.view', compact('person', 'users'));
     }
 
     /**
@@ -116,7 +152,11 @@ class PersonController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $person = Model::byId('persons', $id);
+        $person->delete();
+
+        Toastr::success('U heeft zojuist een Person verwijderd.', 'Gelukt!', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
     }
 
     public function makeNewPerson($person)
@@ -143,5 +183,24 @@ class PersonController extends Controller
         $newPerson->updated_at = $person->updated_at;
         $newPerson->real_id = $person->real_id;
         return $newPerson;
+    }
+
+    public function makeNewUser($user)
+    {
+        $newUser = new User;
+        $newUser->id = $user->id;
+        $newUser->first_name = $user->first_name;
+        $newUser->last_name = $user->last_name;
+        $newUser->insertion = $user->insertion;
+        $newUser->email = $user->email;
+        $newUser->is_confirmed = $user->is_confirmed;
+        $newUser->created_at = Carbon::createFromTimestamp($user->created_at);
+        $newUser->updated_at = Carbon::createFromTimestamp($user->updated_at);
+        $newUser->readable_created_at = $user->readable_created_at;
+        $newUser->readable_updated_at = $user->readable_updated_at;
+        $newUser->real_id = $user->real_id;
+        $newUser->deleted_at = $user->deleted_at;
+        $newUser->roles = collect($user->roles)->pluck('id')->toArray();
+        return $newUser;
     }
 }
