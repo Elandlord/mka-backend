@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laravel5
+  namespace: laravel5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: laravel5
+  template:
+    metadata:
+      labels:
+        app: laravel5
+    spec:
+      containers:
+      - name: laravel5
+        image: docker-registry.rapide.software/demo/k8s-laravel5-demo:master
+        imagePullPolicy: Always
+        volumeMounts:
+          - name: dotenv-volume
+            mountPath: /var/www/html/.env
+            subPath: .env
+        #command:
+        #- sleep
+        #- infinity
+        env:
+           #- name: SOME_NAME
+           #  value: "some_value"
+           - name: APP_LOG
+             value: "errorlog" # sends to stdout
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+        - name: rapide-registry
+      volumes:
+        - name: dotenv-volume
+          configMap:

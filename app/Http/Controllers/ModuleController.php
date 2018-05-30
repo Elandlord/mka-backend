@@ -96,9 +96,13 @@ class ModuleController extends Controller
     {
         $response = Model::byId('modules', $id);
 
-        $module = $this->makeNewModule($response);
+        if($response != null) {
+            $module = $this->makeNewModule($response);
+            return view('crud.modules.view', compact('module'));
+        }
 
-        return view('crud.modules.view', compact('module'));
+        $client = Client::getInstance();
+        var_dump($client->lastError);
     }
 
     /**

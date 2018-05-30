@@ -11,6 +11,29 @@ use App\Models\Person;
 
 class PersonController extends Controller
 {
+    public function getPersons()
+    {
+        $currentPage = request()->get('page');
+        $perPage = 15;
+        $response = Model::all('persons', ['creator'], $perPage, $currentPage);
+
+        $persons = [];
+
+        foreach($response as $person){
+            $newPerson = $this->makeNewPerson($person);
+            array_push($persons, $newPerson);
+        }
+
+        $range = range(1, $response->total());
+        $pagination = $this->paginate($range, $perPage);
+
+
+        return [
+            "pagination" => $pagination,
+            "persons" => $persons
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,22 +41,16 @@ class PersonController extends Controller
      */
     public function index()
     {
-        $responseContactPersons = Model::all('persons', ['creator']);
+        $response = $this->getPersons();
 
-        $contact_persons = [];
-
-        foreach($responseContactPersons as $person){
-            $newPerson = $this->makeNewPerson($person);
-            array_push($contact_persons, $newPerson);
-        }
-
-        $persons = collect($contact_persons);
+        $pagination = $response['pagination'];
+        $persons = $response['persons'];
 
         $person_fields = Person::FIELDS;
 
         $entity_name = "persons";
 
-        return view('crud.persons.index', compact('persons', 'person_fields', 'entity_name'));
+        return view('crud.persons.index', compact('persons', 'person_fields', 'entity_name', 'pagination'));
     }
 
     /**

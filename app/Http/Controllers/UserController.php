@@ -108,12 +108,13 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $response = Model::create('users', $request->all());
+     
         
         if($response != null) {
             Toastr::success('U heeft zojuist een User toegevoegd.', 'Gelukt!', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
         }
-
+        
         $client = Client::getInstance();
         Toastr::error("Er is iets misgegaan. Error: ". $client->lastError, 'Mislukt!', ["positionClass" => "toast-top-right"]);
         return redirect('/users');

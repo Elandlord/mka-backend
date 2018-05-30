@@ -1,0 +1,31 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: rapideinternet/php:7.1-node-browsers
+    working_directory: ~/laravel
+    steps:
+      - checkout
+      - run: sudo composer self-update
+      - restore_cache:
+          keys:
+            - composer-v1-{{ checksum "composer.json" }}
+            - composer-v1-
+      - run: composer install -n --prefer-dist
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.json" }}
+          paths:
+            - vendor
+
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      - run: |
+          #TAG=0.$CIRCLE_BUILD_NUM
+          TAG=$CIRCLE_BRANCH
+          IMAGE=k8s-laravel5-demo
+          NAMESPACE=demo
+          docker build -t $NAMESPACE/$IMAGE:$TAG -f deploy/docker/Dockerfile .
+          docker login https://docker-registry.rapide.software -u $DOCKER_USER -p $DOCKER_PASS
+          docker tag $NAMESPACE/$IMAGE:$TAG docker-registry.rapide.software/$NAMESPACE/$IMAGE:$TAG
+          docker push docker-registry.rapide.software/$NAMESPACE/$IMAGE:$TAG

@@ -6,7 +6,7 @@
 
         <div v-cloak>
             <tabs>
-                <tab name="Alle persons">
+                <tab name="Alle Persons">
                     @include('crud.read.read', ['objects' => $persons, 'fields' => $person_fields])
                 </tab>
                 <tab name="Person toevoegen">

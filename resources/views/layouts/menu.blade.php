@@ -43,7 +43,7 @@
     </p>
 
     <div id="overig" class="collapse in" v-cloak>
-        {{-- <nav-link id="/persons" icon="account_circle"> Personen </nav-link> --}}
+        <nav-link id="/persons" icon="account_circle"> Personen </nav-link>
         <nav-link id="/modules" icon="add_box"> Modules </nav-link>
         <nav-link id="/permissions" icon="vpn_key"> Permissies </nav-link>
     </div>  
