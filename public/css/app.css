@@ -22426,3 +22426,12 @@ button.toast-close-button {
   background: -webkit-gradient(linear, left top, right top, from(#483692), to(#7047ce));
 }
 
+.tenant-color-box {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #212529;
+  position: relative;
+  top: 8px;
+  left: 5px;
+}
+

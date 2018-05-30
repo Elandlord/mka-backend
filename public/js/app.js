@@ -14360,6 +14360,38 @@ $(document).ready(function () {
     });
 });
 
+// Primary color
+$('#colorpicker-primary').on('change', function () {
+    $('#hexcolor-primary').val(this.value);
+});
+$('#hexcolor-primary').on('change', function () {
+    $('#colorpicker-primary').val(this.value);
+});
+
+// Primary text color
+$('#colorpicker-primary-text').on('change', function () {
+    $('#hexcolor-primary-text-color').val(this.value);
+});
+$('#hexcolor-primary-text-color').on('change', function () {
+    $('#colorpicker-primary-text').val(this.value);
+});
+
+// Secondary color
+$('#colorpicker-secondary').on('change', function () {
+    $('#hexcolor-secondary-color').val(this.value);
+});
+$('#hexcolor-secondary-color').on('change', function () {
+    $('#colorpicker-secondary').val(this.value);
+});
+
+// Secondary text color
+$('#colorpicker-secondary-text').on('change', function () {
+    $('#hexcolor-secondary-text-color').val(this.value);
+});
+$('#hexcolor-secondary-text-color').on('change', function () {
+    $('#colorpicker-secondary-text').val(this.value);
+});
+
 /***/ }),
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {

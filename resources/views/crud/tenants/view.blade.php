@@ -20,20 +20,24 @@
                         <input type="text" class="form-control" placeholder="Subdomein" name="subdomain" id="subdomain" value="{{ $tenant->subdomain }}" required/>
                     </div>
                     <div class="form-group">
-                        <label for="primary_color">Primaire kleur</label>
-                        <input type="text" class="form-control" placeholder="Naam" name="primary_color" id="primary_color" value="{{ $tenant->primary_color }}" required/>
+                        <label for="hexcolor-primary">Primaire kleur</label>
+                        <input type="color" id="colorpicker-primary" name="color" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" value="{{ $tenant->primary_color }}"> 
+                        <input type="text" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" class="form-control" name="primary_color" value="{{ $tenant->primary_color }}" id="hexcolor-primary"></input>
                     </div>
                     <div class="form-group">
-                        <label for="primary_color_text">Primaire tekstkleur</label>
-                        <input type="text" class="form-control" placeholder="Primaire tekstkleur" name="primary_color_text" id="primary_color_text" value="{{ $tenant->primary_color_text }}" required/>
+                        <label for="hexcolor-primary-text-color">Primaire tekstkleur</label>
+                        <input type="color" id="colorpicker-primary-text" name="color" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" value="{{ $tenant->primary_color_text }}"> 
+                        <input type="text" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" class="form-control" name="primary_color_text" value="{{ $tenant->primary_color_text }}" id="hexcolor-primary-text-color"></input>
                     </div>
                     <div class="form-group">
-                        <label for="secondary_color">Secundaire kleur</label>
-                        <input type="text" class="form-control" placeholder="Secundaire kleur" name="secondary_color" id="secondary_color" value="{{ $tenant->secondary_color }}" required/>
+                        <label for="hexcolor-secondary-color">Secundaire kleur</label>
+                        <input type="color" id="colorpicker-secondary" name="color" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" value="{{ $tenant->secondary_color }}"> 
+                        <input type="text" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" class="form-control" name="secondary_color" value="{{ $tenant->secondary_color }}" id="hexcolor-secondary-color"></input>
                     </div>
                     <div class="form-group">
-                        <label for="secondary_color_text">Secundaire tekstkleur</label>
-                        <input type="text" class="form-control" placeholder="Secundaire tekstkleur" name="secondary_color_text" id="secondary_color_text" value="{{ $tenant->secondary_color_text }}" required/>
+                        <label for="hexcolor-secondary-text-color">Secundaire tekstkleur</label>
+                        <input type="color" id="colorpicker-secondary-text" name="color" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" value="{{ $tenant->secondary_color_text }}"> 
+                        <input type="text" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" class="form-control" name="secondary_color_text" value="{{ $tenant->secondary_color_text }}" id="hexcolor-secondary-text-color"></input>
                     </div>
                     <div class="form-group">
                         <button class="btn bg-secondary bg-secondary-hover-lighten-xs transition-fast text-color-light">Opslaan</button>

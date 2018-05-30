@@ -42,6 +42,8 @@
                     @if(!is_array($var))
                         @if($var == "")
                             <td><strong>-</strong></td>                    
+                        @elseif(substr($var, 0, 1) == "#")
+                            <td><span class="inline-block">{{ $var }}</span> <span class="tenant-color-box inline-block" style="background-color: {{ $var }}"></span></td>
                         @else
                             <td>{{ $var }}</td>
                         @endif
