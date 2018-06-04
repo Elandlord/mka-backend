@@ -228,7 +228,13 @@ class PersonController extends Controller
 
         $client = Client::getInstance();
 
-        $response = $client->post('modules/sync', $data);
+        $response = $client->post('users/sync', $data);
+        
         dd($response);
+
+        $implode = implode(", ", $users);        
+
+        Toastr::success("U heeft de modules voor ". $person_name ." bijgewerkt", 'Gelukt!', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
     }
 }

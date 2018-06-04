@@ -19,7 +19,7 @@
                 @endforeach
             </tr>
         </thead>
-        @foreach($objects as $index => $object)    
+        @forelse($objects as $index => $object)    
             <tr class="pointer">            
                 <td>
                     <a href="{{ $entity_name }}/{{ $object->id }}">
@@ -61,6 +61,8 @@
                     @endif
                 @endforeach
             </tr>
-        @endforeach
+        @empty
+            Geen resultaten gevonden.
+        @endforelse
     </table>
 </div>

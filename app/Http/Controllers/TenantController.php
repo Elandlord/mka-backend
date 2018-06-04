@@ -210,7 +210,7 @@ class TenantController extends Controller
         dd($data);
 
         // To-do Sync modules
-        $response = $client->post('users/sync', $data);
+        $response = $client->post('modules/sync', $data);
         dd($response);
         
 
