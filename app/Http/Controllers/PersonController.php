@@ -65,13 +65,16 @@ class PersonController extends Controller
         $persons = $response['persons'];
 
         $users = $this->getUsers();
-
         
         $chosen_users = collect($persons)->filter(function ($person) {
             return $person->user_id != "";
         })->pluck('user_id');
 
-        $selectable_users = array_diff(collect($users)->pluck('id')->toArray(), $chosen_users->toArray());
+        $available_ids = array_diff(collect($users)->pluck('id')->toArray(), $chosen_users->toArray());
+
+        $selectable_users = collect($users)->filter(function ($user) use ($available_ids) {
+            return in_array($user->id, $available_ids);
+        });
 
         $person_fields = Person::FIELDS;
 

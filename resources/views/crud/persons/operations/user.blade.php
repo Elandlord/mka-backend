@@ -24,19 +24,41 @@
                         <tr>
                             <th>Users</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <input type="hidden" name="person_id" value="{{ $object->id }}" />
                     <input type="hidden" name="person_name" value="{{ $object->first_name }} {{ $object->last_name }}" />
                     <tr>           
-                        <td>
-                            @foreach($users as $i => $user)    
+                        <td style="width: 350px;">
+                            <div>
+                                @php $hasUser = false; @endphp
+                                @forelse($users as $i => $user)
+                                    @if($object->user_id == $user->id) 
+                                        Momenteel geselecteerd: <strong>{{ $user->first_name }} {{ $user->insertion }} {{ $user->last_name }}</strong>
+                                        @php $hasUser = true; @endphp
+                                    @endif
+                                @empty
+
+                                @endforelse
+
+                                @if(!$hasUser)
+                                    Momenteel geen user geselecteerd.
+                                @endif
+                            </div>
+                        </td>
+                        <td  style="width: 950px;">
+                            @forelse($selectable_users as $i => $user)    
                                 {{-- To-do, see if checked. --}}
                                 <div class="col-lg-4">      
-                                    <label class="pointer text-regular" for="{{ $user->id }}{{ $user->first_name }}">{{ $user->first_name }} {{ $user->insertion }} {{ $user->last_name }}</label>
-                                    <input style="position: relative; top: 2px;" type="radio" name="user" value="{{ $user->id }}" id="{{ $user->id }}{{ $user->first_name }}" @if($object->user_id == $user->id) checked="checked" @endif/>                                  
+                                    <label class="pointer text-regular" for="{{ $object->id }}{{ $user->id }}{{ $user->first_name }}">{{ $user->first_name }} {{ $user->insertion }} {{ $user->last_name }}</label>
+                                    <input style="position: relative; top: 2px;" type="radio" name="user" value="{{ $user->id }}" id="{{ $object->id }}{{ $user->id }}{{ $user->first_name }}" />                                  
                                 </div>                        
-                            @endforeach
+                            @empty
+                                <div class="text-center">
+                                    Alle users zijn gekozen.
+                                </div>
+                            @endforelse
                         </td>
                         <td>
                             <button class="btn bg-secondary bg-secondary-hover-lighten-xs transition-fast text-color-light">Opslaan</button>
