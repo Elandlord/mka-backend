@@ -214,4 +214,21 @@ class PersonController extends Controller
         $newUser->roles = collect($user->roles)->pluck('id')->toArray();
         return $newUser;
     }
+
+    public function users(Request $request)
+    {
+        $person_id = $request->get('person_id');
+        $person_name = $request->get('person_name');
+        $users = $request->get('users');
+
+        $data = [
+            "person_id" => $person_id,
+            "users_ids" => $users,
+        ];
+
+        $client = Client::getInstance();
+
+        $response = $client->post('modules/sync', $data);
+        dd($response);
+    }
 }

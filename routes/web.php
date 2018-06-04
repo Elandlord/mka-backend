@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('modules', 'ModuleController');
     Route::resource('permissions', 'PermissionController');    
     Route::resource('persons', 'PersonController');
+    Route::resource('persons/users', 'PersonController@users');
     Route::post('tenants/modules', 'TenantController@modules');
     Route::resource('tenants', 'TenantController');
     Route::resource('users', 'UserController');

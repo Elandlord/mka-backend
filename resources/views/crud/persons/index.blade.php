@@ -12,6 +12,9 @@
                 <tab name="Person toevoegen">
                     @include('crud.persons.operations.add')
                 </tab>
+                <tab name="Person koppelen aan User">
+                    @include('crud.persons.operations.user')
+                </tab>
             </tabs>
         </div>
     </div>

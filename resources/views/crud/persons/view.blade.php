@@ -74,14 +74,6 @@
                     <input type="text" class="form-control" value="{{ $person->postal_code }}" placeholder="Postcode" name="postal_code" id="postal_code" required/>
                 </div>
                 <div class="form-group">
-                    <label for="user_id">User</label>
-                    <select name="user_id" id="user_id" class="form-control">
-                        @foreach($users as $user)
-                            <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
                     <button class="btn bg-secondary bg-secondary-hover-lighten-xs transition-fast text-color-light">Opslaan</button>
                 </div>
             </form>
