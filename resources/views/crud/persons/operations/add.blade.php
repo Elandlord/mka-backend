@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label for="bio">Bio</label>
-                <textarea class="form-control" name="bio" id="bio" /></textarea>
+                <textarea class="form-control" name="bio" id="bio" placeholder="Bio"/></textarea>
             </div>
             <div class="form-group">
                 <label for="date_of_birth">Geboortedatum</label>

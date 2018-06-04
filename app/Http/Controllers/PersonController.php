@@ -141,7 +141,18 @@ class PersonController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $person = Model::byId('persons', $id);
+        $response = $person->update($request->all());
+        
+
+        if($response != null) {
+            Toastr::success('U heeft zojuist een Person aangepast.', 'Gelukt!', ["positionClass" => "toast-top-right"]);
+            return redirect('/persons');
+        }
+
+        $client = Client::getInstance();
+        Toastr::error("Er is iets misgegaan. Error: ". $client->lastError, 'Mislukt!', ["positionClass" => "toast-top-right"]);
+        return redirect('/persons');
     }
 
     /**
