@@ -66,11 +66,18 @@ class PersonController extends Controller
 
         $users = $this->getUsers();
 
+        
+        $chosen_users = collect($persons)->filter(function ($person) {
+            return $person->user_id != "";
+        })->pluck('user_id');
+
+        $selectable_users = array_diff(collect($users)->pluck('id')->toArray(), $chosen_users->toArray());
+
         $person_fields = Person::FIELDS;
 
         $entity_name = "persons";
 
-        return view('crud.persons.index', compact('persons', 'users', 'person_fields', 'entity_name', 'pagination'));
+        return view('crud.persons.index', compact('persons', 'users', 'selectable_users', 'person_fields', 'entity_name', 'pagination'));
     }
 
     /**
@@ -181,7 +188,7 @@ class PersonController extends Controller
         $newPerson->insertion = $person->insertion;
         $newPerson->gender = $person->gender;
         $newPerson->bio = $person->bio;
-        $newPerson->date_of_birth = $person->date_of_birth;
+        $newPerson->date_of_birth = Carbon::createFromTimestamp($person->date_of_birth)->format("Y-m-d");
         $newPerson->phone_number_private = $person->phone_number_private;
         $newPerson->email_private = $person->email_private;
         $newPerson->address = $person->address;
@@ -219,22 +226,21 @@ class PersonController extends Controller
     {
         $person_id = $request->get('person_id');
         $person_name = $request->get('person_name');
-        $users = $request->get('users');
+        $user_id = $request->get('user');
 
-        $data = [
-            "person_id" => $person_id,
-            "users_ids" => $users,
-        ];
+        
+        $person = Model::byId('persons', $person_id);
+        $person->user_id = $user_id;
+        $response = $person->update($person);
+
+
+        if($response != null) {
+            Toastr::success('U heeft zojuist een Person aangepast.', 'Gelukt!', ["positionClass" => "toast-top-right"]);
+            return redirect('/persons');
+        }
 
         $client = Client::getInstance();
-
-        $response = $client->post('users/sync', $data);
-        
-        dd($response);
-
-        $implode = implode(", ", $users);        
-
-        Toastr::success("U heeft de modules voor ". $person_name ." bijgewerkt", 'Gelukt!', ["positionClass" => "toast-top-right"]);
-        return redirect()->back();
+        Toastr::error("Er is iets misgegaan. Error: ". $client->lastError, 'Mislukt!', ["positionClass" => "toast-top-right"]);
+        return redirect('/persons');
     }
 }

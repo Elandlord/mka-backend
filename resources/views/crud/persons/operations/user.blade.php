@@ -34,7 +34,7 @@
                                 {{-- To-do, see if checked. --}}
                                 <div class="col-lg-4">      
                                     <label class="pointer text-regular" for="{{ $user->id }}{{ $user->first_name }}">{{ $user->first_name }} {{ $user->insertion }} {{ $user->last_name }}</label>
-                                    <input style="position: relative; top: 2px;" type="checkbox" name="users[]" value="{{ $user->id }}" id="{{ $user->id }}{{ $user->first_name }}" />                                  
+                                    <input style="position: relative; top: 2px;" type="radio" name="user" value="{{ $user->id }}" id="{{ $user->id }}{{ $user->first_name }}" @if($object->user_id == $user->id) checked="checked" @endif/>                                  
                                 </div>                        
                             @endforeach
                         </td>
