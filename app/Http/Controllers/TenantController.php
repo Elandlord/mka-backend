@@ -207,13 +207,8 @@ class TenantController extends Controller
 
         $client = Client::getInstance();
 
-        dd($data);
-
         // To-do Sync modules
         $response = $client->post('modules/sync', $data);
-        dd($response);
-        
-
         
         $implode = implode(", ", $modules);
 

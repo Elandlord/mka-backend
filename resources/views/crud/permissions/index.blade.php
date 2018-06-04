@@ -9,9 +9,9 @@
                 <tab name="Alle permissions">
                     @include('crud.read.read', ['objects' => $permissions, 'fields' => $permission_fields])
                 </tab>
-                <tab name="Permission toevoegen">
+                {{-- <tab name="Permission toevoegen">
                     @include('crud.permissions.operations.add')
-                </tab>
+                </tab> --}}
             </tabs>
         </div>
     </div>
